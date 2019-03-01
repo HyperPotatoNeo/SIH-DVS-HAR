@@ -10,54 +10,27 @@ Structure data as shown in the below given example.
 data/
 └── train/
 	└── label1/
-		└── sample1/
-			├──	frame1.png
-			├──	frame2.png
-			├──	frame3.png
-			└──	...
-		└── sample2/
-			├──	frame1.png
-			├──	frame2.png
-			├──	frame3.png
-			└──	...
+		└── sample1.npy
+		└── sample2.npy
 		└── ...
 	└── label2/
-		└── sample1/
-			├──	frame1.png
-			├──	frame2.png
-			├──	frame3.png
-			└──	...
-		└── sample2/
-			├──	frame1.png
-			├──	frame2.png
-			├──	frame3.png
-			└──	...
+		└── sample1.npy
+		└── sample2.npy
 		└── ...
 	└── ...
 └── test/
 	└── label1/
-		└── sample1/
-			├──	frame1.png
-			├──	frame2.png
-			├──	frame3.png
-			└──	...
-		└── sample2/
-			├──	frame1.png
-			├──	frame2.png
-			├──	frame3.png
-			└──	...
+		└── sample1.npy
+		└── sample2.npy
 		└── ...
 	└── label2/
-		└── sample1/
-			├──	frame1.png
-			├──	frame2.png
-			├──	frame3.png
-			└──	...
-		└── sample2/
-			├──	frame1.png
-			├──	frame2.png
-			├──	frame3.png
-			└──	...
+		└── sample1.npy
+		└── sample2.npy
+		└── ...		
+	└── ...
+	└── label2/
+		└── sample1.npy		
+		└── sample2.npy
 		└── ...
 	└── ...
 ```
