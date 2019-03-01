@@ -20,11 +20,6 @@ data/
 			├──	frame2.png
 			├──	frame3.png
 			└──	...
-		└── sample3/
-			├──	frame1.png
-			├──	frame2.png
-			├──	frame3.png
-			└──	...
 		└── ...
 	└── label2/
 		└── sample1/
@@ -33,11 +28,6 @@ data/
 			├──	frame3.png
 			└──	...
 		└── sample2/
-			├──	frame1.png
-			├──	frame2.png
-			├──	frame3.png
-			└──	...
-		└── sample3/
 			├──	frame1.png
 			├──	frame2.png
 			├──	frame3.png
@@ -56,11 +46,6 @@ data/
 			├──	frame2.png
 			├──	frame3.png
 			└──	...
-		└── sample3/
-			├──	frame1.png
-			├──	frame2.png
-			├──	frame3.png
-			└──	...
 		└── ...
 	└── label2/
 		└── sample1/
@@ -69,11 +54,6 @@ data/
 			├──	frame3.png
 			└──	...
 		└── sample2/
-			├──	frame1.png
-			├──	frame2.png
-			├──	frame3.png
-			└──	...
-		└── sample3/
 			├──	frame1.png
 			├──	frame2.png
 			├──	frame3.png
