@@ -10,20 +10,72 @@ Structure data as shown in the below given example.
 data/
 └── train/
 	└── label1/
-		├── example1.npy
-		├── example7.npy
-		└── example10.npy
+		└── sample1/
+			├──	frame1.png
+			├──	frame2.png
+			├──	frame3.png
+			└──	...
+		└── sample2/
+			├──	frame1.png
+			├──	frame2.png
+			├──	frame3.png
+			└──	...
+		└── sample3/
+			├──	frame1.png
+			├──	frame2.png
+			├──	frame3.png
+			└──	...
+		└── ...
 	└── label2/
-		├── example4.npy
-		├── example8.npy
-		└── example11.npy
+		└── sample1/
+			├──	frame1.png
+			├──	frame2.png
+			├──	frame3.png
+			└──	...
+		└── sample2/
+			├──	frame1.png
+			├──	frame2.png
+			├──	frame3.png
+			└──	...
+		└── sample3/
+			├──	frame1.png
+			├──	frame2.png
+			├──	frame3.png
+			└──	...
+		└── ...
 └── test/
 	└── label1/
-		├── example2.npy
-		├── example5.npy
-		└── example9.npy
+		└── sample1/
+			├──	frame1.png
+			├──	frame2.png
+			├──	frame3.png
+			└──	...
+		└── sample2/
+			├──	frame1.png
+			├──	frame2.png
+			├──	frame3.png
+			└──	...
+		└── sample3/
+			├──	frame1.png
+			├──	frame2.png
+			├──	frame3.png
+			└──	...
+		└── ...
 	└── label2/
-		├── example6.npy
-		├── example11.npy
-		└── example12.npy
+		└── sample1/
+			├──	frame1.png
+			├──	frame2.png
+			├──	frame3.png
+			└──	...
+		└── sample2/
+			├──	frame1.png
+			├──	frame2.png
+			├──	frame3.png
+			└──	...
+		└── sample3/
+			├──	frame1.png
+			├──	frame2.png
+			├──	frame3.png
+			└──	...
+		└── ...
 ```
