@@ -5,7 +5,7 @@ import os
 import numpy as np
 
 
-class VideoGenerator:
+class VideoGenerator():
 
 	def __init__(self, train_dir, test_dir, dims, batch_size=2, shuffle=True, file_ext=".npy"):
 		self.train_dir = train_dir
