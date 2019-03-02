@@ -11,8 +11,10 @@ from tensorflow.keras.layers import MaxPooling2D
 from tensorflow.keras.layers import ReLU
 from tensorflow.keras.layers import Input
 from tensorflow.keras.models import Model
+from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard
+from dataloader import *
 
-def network(x,n_classes):
+def network(x, n_classes):
 	x=TimeDistributed()(Conv2D(3,(3,3),padding='same')(x))
 	x=TimeDistributed()(BatchNormalization()(x))
 	x=TimeDistributed()(MaxPooling2D()(x))
@@ -46,17 +48,56 @@ def network(x,n_classes):
 	x=TimeDistributed()(BatchNormalization()(x))
 	x=TimeDistributed()(MaxPooling2D()(x))
 	x=TimeDistributed()(ReLU()(x))
-	output=TimeDistributed()(Dense(n_classes,activation='softmax')(x))
+	output=TimeDistributed()(Dense(n_classes, activation='softmax')(x))
 	return output
 
 N_CLASSES=?
-
+N_FRAMES = ?
 IMG_WIDTH=?
 IMG_HEIGHT=?
 
-inputs= Input(shape=(IMG_WIDTH,IMG_HEIGHT))
-output= network(inputs,N_CLASSES)
-model= Model(input=inputs,outputs=output)
-model.compile(optimizer='adam', loss='categorical_crossentropy',metrics=['accuracy'])
+generator = VideoGenerator(
+	train_dir = 'data/train',
+	test_Dir = 'data/test',
+	dims = (N_FRAMES, IMG_WIDTH, IMG_HEIGHT, N_CLASSES),
+	batch_size = 2,
+	shuffle = True,
+	file_ext = '.npy'
+	)
 
+train_gen = generator.generate(
+	mode = 'train'
+	)
 
+test_gen = generator.generate(
+	mode = 'test'
+	)
+
+checkpoint = ModelCheckpoint(
+	'models/weights_{epoch:02d}_{val_acc:.2f}.hdf5',
+	monitor = 'val_acc',
+	verbose = 1,
+	mode = 'max'
+	)
+
+tensorboard = TensorBoard(
+	log_dir = './logs',
+	histogram_freq = 1,
+    write_graph = True,
+    update_freq  ='epoch'
+    )
+
+inputs = Input(shape = (IMG_WIDTH,IMG_HEIGHT))
+output = network(inputs,N_CLASSES)
+model = Model(input=inputs,outputs=output)
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
+model.fit_generator(
+	generator = train_gen,
+	steps_per_epoch = ?,
+	epochs = ?,
+	verbose = 1,
+	callbacks = [checkpoint, tensorboard],
+	validation_data = test_gen,
+	validation_steps = ?
+	)

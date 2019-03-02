@@ -7,7 +7,7 @@ import numpy as np
 
 class VideoGenerator():
 
-	def __init__(self, train_dir, test_dir, dims, batch_size=2, shuffle=True, file_ext=".npy"):
+	def __init__(self, train_dir, test_dir, dims, batch_size=2, shuffle=True, file_ext='.npy'):
 		self.train_dir = train_dir
 		self.test_dir = test_dir
 		self.frames, self.width, self.height, self.channels = dims
@@ -28,22 +28,22 @@ class VideoGenerator():
 		self.n_classes = len(self.classname_by_id)
 		assert self.n_classes == len(self.id_by_classname), "Number of unique classes for training set isn't equal to testing set"
 
-	def get_filenames(self, dir):
-		filenames = glob.glob(os.path.join(dir, f"**/*{self.file_ext}"))
+	def get_filenames(self, directory):
+		filenames = glob.glob(os.path.join(directory, f"**/*{self.file_ext}"))
 		return filenames
 
-	def generate(self, train_or_test, rotation_range=None, heigt_shift_range=None, width_shift_range=None,
-				 shear_range=None, zoom_range=None, horizontal_flip=None, vertical_flip=None, brightness_range=None):
+	def generate(self, mode = 'train', rotation_range = None, heigt_shift_range = None, width_shift_range = None,
+				 shear_range = None, zoom_range = None, horizontal_flip = None, vertical_flip = None, brightness_range = None):
 
 		if train_or_test == 'train':
-			dir = self.train_dir
+			directory = self.train_dir
 		elif train_or_test == 'test':
-			dir = self.test_dir
+			directory = self.test_dir
 		else:
 			raise ValueError
 
 		while True:
-			filenames = self.get_filenames(dir)
+			filenames = self.get_filenames(directory)
 			if self.shuffle:
 				random.shuffle(filenames)
 
@@ -77,8 +77,6 @@ class VideoGenerator():
 		y = self.list_of_integers_to_2d_onehots(labels)
 		return x, y
 
-
-
 	def list_of_integers_to_2d_onehots(self, integers):
-		array = [[1 if integers[sample] == cls else 0 for cls in range(self.n_classes)] for sample in range(len(integers))]
+		array = [[1 if integers[sample] == label else 0 for label in range(self.n_classes)] for sample in range(len(integers))]
 		return np.array(array)

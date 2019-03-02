@@ -207,12 +207,12 @@ def cal_first_response(timestamps, window=1000):
     event_freq = cal_event_freq(event_info, window=window)
 
     # calculate running standard deviation
-    n = 3
+    n = 64
     o = cal_running_std(event_freq, n)
 
     start_idx = 0
     print(o.shape)
-    while (start_idx+1<o.shape[0] and o[start_idx+1]/o[start_idx] < 3):
+    while (start_idx+1<o.shape[0] and o[start_idx+1]/o[start_idx] < 1):
         start_idx += 1
 
     key_ts = event_freq[start_idx+2*n, 0]
@@ -220,7 +220,7 @@ def cal_first_response(timestamps, window=1000):
     return np.where(timestamps == key_ts)[0][0]
 
 
-def clean_up_events(timestamps, xaddr, yaddr, pol, window=1000,
+def clean_up_events(timestamps, xaddr, yaddr, pol, window=100,
                     key_idx=0):
     """Clean up event series based on standard deviation.
     Parameters
@@ -248,7 +248,92 @@ def clean_up_events(timestamps, xaddr, yaddr, pol, window=1000,
             pol[key_idx:])
 
 
-THRESH=0.3
+
+def gen_dvs_frames(timestamps, xaddr, yaddr, pol, num_frames, fs=3,
+                   platform="linux2", device="DVS128"):
+    """Generate DVS frames from recording.
+    Paramters
+    ---------
+    timestamps : numpy.ndarray
+        time stamps record
+    xaddr : numpy.ndarray
+        x position of event recordings
+    yaddr : numpy.ndarry
+        y position of event recordings
+    pol : nujmpy.ndarray
+        polarity of event recordings
+    num_frames : int
+        number of frames in original video sequence
+    fs : int
+        maximum of events of a pixel
+    platform : string
+        recording platform of the source. Available option:
+        "macosx", "linux2"
+    device : string
+        DVS camera model - "DAVIS240" (default), "DVS128", "ATIS"
+    Returns
+    -------
+    frames : list
+        list of DVS frames
+    fs : int
+        a scale factor for displaying the frame
+    ts : list
+        a list that records start timestamp for each frame
+    """
+    base = 0
+    max_events_idx = timestamps.shape[0]-1
+    time_step = (timestamps[-1]-timestamps[0])/num_frames
+    if device == "DAVIS240":
+        base_frame = np.zeros((180, 240), dtype=np.int8)
+    elif device == "DVS128":
+        base_frame = np.zeros((128, 128), dtype=np.int8)
+    elif device == "ATIS":
+        base_frame = np.zeros((240, 304), dtype=np.int8)
+    else:
+        base_frame = np.zeros((180, 240), dtype=np.int8)
+
+    print("Average frame time: ",(time_step))
+
+    frames = []
+    ts = []
+    while base < max_events_idx and len(frames) < num_frames:
+        ts.append(timestamps[base])
+        k = base
+        diff = 0
+        frame = base_frame.copy()
+        while diff < time_step and k < max_events_idx:
+            if platform == "linux2":
+                if device == "DAVIS240":
+                    x_pos = min(239, xaddr[k]-1)
+                elif device == "DVS128":
+                    x_pos = min(127, xaddr[k]-1)
+                elif device == "ATIS":
+                    x_pos = min(304, xaddr[k]-1)
+            elif platform == "macosx":
+                if device == "DAVIS240":
+                    x_pos = min(239, 240-xaddr[k])
+                elif device == "DVS128":
+                    x_pos = min(127, 128-xaddr[k])
+            if device == "DAVIS240":
+                y_pos = min(179, 180-yaddr[k])
+            elif device == "DVS128":
+                y_pos = min(127, yaddr[k])
+            elif device == "ATIS":
+                y_pos = min(240, yaddr[k])
+
+            if pol[k] == 1:
+                frame[y_pos, x_pos] = min(fs, frame[y_pos, x_pos]+1)
+            elif pol[k] == 0:
+                frame[y_pos, x_pos] = max(-fs, frame[y_pos, x_pos]-1)
+            k += 1
+            diff = int(timestamps[k]-timestamps[base])
+
+        base = k-1
+        frames.append(frame)
+
+    return frames, fs, ts
+
+
 
 for filename in os.listdir(directory):
     if(filename.endswith('labels.csv') and filename!='gesture_mapping.csv'):
@@ -256,48 +341,54 @@ for filename in os.listdir(directory):
         aefile=filename.replace('_labels.csv','.aedat')
         print(aefile)
         timestamps,x,y,pol=loadaerdat(datafile=directory+'/'+aefile)
-        zipped = list(zip(timestamps, x, y))
+        zipped = list(zip(timestamps, x, y, pol))
         zipped.sort()
-        timestamps,x,y=list(zip(*zipped))
+        timestamps,x,y,pol=list(zip(*zipped))
+        T=np.asarray(timestamps)
+        X=np.asarray(x)
+        Y=np.asarray(y)
+        polarity=np.asarray(pol)
+        T,X,Y,polarity=clean_up_events(T,X,Y,polarity)
         labels=labels.values
         for i in range(labels.shape[0]):
             action=labels[i,0]-1
+            print('ACTION:',action)
             start_time=labels[i,1]
             end_time=labels[i,2]
-            start_time=find_nearest_list(timestamps,start_time)
-            end_time=find_nearest_list(timestamps,end_time)
-            start_index=timestamps.index(start_time)
-            end_index=len(timestamps)-timestamps[::-1].index(end_time)
+            start_index=find_nearest(T,start_time)
+            end_index=find_nearest_list(T,end_time)
+            #start_index=timestamps.index(start_time)
+            #end_index=len(timestamps)-timestamps[::-1].index(end_time)
             print(end_index-start_index)
-            X=np.asarray(x[start_index:end_index+1])
-            T=np.asarray(timestamps[start_index:end_index+1])
-            Y=np.asarray(y[start_index:end_index+1])
-            polarity=np.asarray(pol[start_index:end_index+1])
+            X=X[start_index:end_index+1]
+            T=T[start_index:end_index+1]
+            Y=Y[start_index:end_index+1]
+            polarity=polarity[start_index:end_index+1]
 
-            T,X,Y,polarity=clean_up_events(T,X,Y,polarity,THRESH)
             print(T.shape,X.shape,Y.shape,polarity.shape)
-            X=np.asarray(X)
             if(X.shape[0]==0):
                 continue
             #X=(X>>17)&0x00001FFF
-            Y=np.asarray(Y)
             iter=0
             frame=np.zeros((128,128))
             #Y=(Y>>2)&0x00001FFF
-            #print(X)
-            polarity=np.asarray(polarity)
+            #print('Start: '+str(T[-1]),'End: '+str(T[0]))
+            chunk_length=(T.shape[0])//2400
+            print('chunk_size',chunk_length)
             for k in range(X.shape[0]):
-                #print(X[k],Y[k])
+                
                 if(frame[X[k],Y[k]]==0):
                 	frame[X[k],Y[k]]=polarity[k]
                 iter+=1
-                if(iter%500==0):
-                    print(iter)
+                if(iter%chunk_length==0 or k==X.shape[0]-1):
+                    #print(iter)
                     frame*=255
+                    #print(action)
                     cv2.imwrite('parsed_data/train/'+str(action)+'/'+str(global_count)+'.png',frame)
                     global_count+=1
+                   	
+                    frame=np.zeros((128,128))
 
             #polarity=(polarity>>1)&0x00000001
             print(X[0],Y[0],np.sum(polarity),'----')
             #print(timestamps[0:100])
-            break
