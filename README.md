@@ -27,22 +27,22 @@ data/
 .
 └── train/
 	└── label1/
-		└── sample1.npy
-		└── sample2.npy
+		├── sample1.npy
+		├── sample2.npy
 		└── ...
 	└── label2/
-		└── sample1.npy
-		└── sample2.npy
+		├── sample1.npy
+		├── sample2.npy
 		└── ...
 	└── ...
 └── test/
 	└── label1/
-		└── sample1.npy
-		└── sample2.npy
+		├── sample1.npy
+		├── sample2.npy
 		└── ...
 	└── label2/
-		└── sample1.npy
-		└── sample2.npy
+		├── sample1.npy
+		├── sample2.npy
 		└── ...		
 	└── ...
 ```
