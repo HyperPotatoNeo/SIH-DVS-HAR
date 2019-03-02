@@ -12,8 +12,10 @@
     <body>
         <div class="nav">
             <a href="{{ url_for('index') }}">Home</a>
+            <span style="display:inline-block; width: 30px;"></span>
             <a href="{{ url_for('login') }}">Login</a>
         </div>
+        <div>
         <hr>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -25,5 +27,6 @@
         {% endif %}
         {% endwith %}
         {% block content %}{% endblock %}
+    </div>
     </body>
 </html>

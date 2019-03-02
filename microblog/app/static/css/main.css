@@ -49,6 +49,11 @@
 		-webkit-text-size-adjust: none;
 	}
 
+	.nav{
+		    margin: auto 38em;
+		    padding-top: 1.1em;
+	}
+
 	.nav a{
 		font-family: "Scope One", serif;
 		font-size: 20pt;
@@ -111,6 +116,56 @@
 	.loginmain p{
 		margin: 0;
 	}
+
+/* URL Page */
+
+	.resultmain, .urlmain{
+		position: relative;
+		z-index: 1;
+		background: #FFFFFF;
+		max-width: 400px;
+		padding: 32px;
+	  	padding-top: 10px;
+		text-align: center;
+		margin: auto;
+	    -moz-border-radius: 10px;
+	    -webkit-border-radius: 10px;
+	  	border-radius: 10px; /* future proofing */
+		box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	}
+
+	.urlmain #submit{
+	  	font-family: "Scope One", serif;
+	  	text-transform: uppercase;
+	  	background: #3c9cbc;
+	  	width: 100%;
+	  	border: 0;
+	  	margin:2px;
+	    margin-top: 2em;
+	  	padding: 3%;
+	  	color: #FFFFFF;
+	  	font-size: .9rem;
+	  	cursor: pointer;
+	    -moz-border-radius: 7px;
+	  -webkit-border-radius: 7px;
+	  border-radius: 7px; /* future proofing */		
+	}
+
+	.urlmain #submit:hover {
+  		background: #2a738c;
+	}
+
+	.urlmain #url {
+		font-family: "Scope One", serif;
+	  	background: #f2f2f2;
+	  	width: 100%;
+	  	border: 0;
+	  	margin: 5px;
+	  	padding: 3%;
+	  	box-sizing: border-box;
+	  	font-size: .9rem;
+	}
+
 
 /* Box Model */
 
