@@ -60,7 +60,7 @@ generator = VideoGenerator(
 	train_dir = 'data/train',
 	test_Dir = 'data/test',
 	dims = (N_FRAMES, IMG_WIDTH, IMG_HEIGHT, N_CLASSES),
-	batch_size = 2,
+	batch_size = 1,
 	shuffle = True,
 	file_ext = '.npy'
 	)

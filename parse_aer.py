@@ -378,7 +378,7 @@ for filename in os.listdir(directory):
             for k in range(X.shape[0]):
                 
                 if(frame[X[k],Y[k]]==0):
-                	frame[X[k],Y[k]]=polarity[k]
+                    frame[X[k],Y[k]]=polarity[k]
                 iter+=1
                 if(iter%chunk_length==0 or k==X.shape[0]-1):
                     #print(iter)
@@ -386,9 +386,10 @@ for filename in os.listdir(directory):
                     #print(action)
                     cv2.imwrite('parsed_data/train/'+str(action)+'/'+str(global_count)+'.png',frame)
                     global_count+=1
-                   	
+                    
                     frame=np.zeros((128,128))
 
             #polarity=(polarity>>1)&0x00000001
             print(X[0],Y[0],np.sum(polarity),'----')
             #print(timestamps[0:100])
+            break
