@@ -19,8 +19,13 @@ from dataloader import *
 
 def get_parser():
 	parser = ArgumentParser()
-	parser.add_argument('-e', '--epochs', dest = 'epochs', default = 40)
-	parser.add_argument('-i', '--initial_epoch', dest = 'epochs', default = 0)
+	parser.add_argument('-e', '--epochs', dest = 'epochs', default = 50)
+	parser.add_argument('-i', '--initial-epoch', dest = 'initial-epoch', default = 0)
+	args = vars(parser.parse_args())
+
+	return args
+
+args = get_parser()
 
 N_CLASSES=5
 N_FRAMES=5
@@ -55,9 +60,9 @@ checkpoint = ModelCheckpoint(
 tensorboard = TensorBoard(
 	log_dir = './logs',
 	histogram_freq = 1,
-    write_graph = True,
-    update_freq  ='epoch'
-    )
+	write_graph = True,
+	update_freq  ='epoch'
+	)
 
 # inputs = Input(shape = (N_FRAMES,IMG_WIDTH,IMG_HEIGHT))
 # x=TimeDistributed(Conv2D(3,(3,3),padding='same'))(inputs)
@@ -126,9 +131,10 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 model.fit_generator(
 	generator = train_gen,
 	steps_per_epoch = 742,
-	epochs = 30,
+	epochs = args['epochs'],
 	verbose = 1,
-	callbacks = [checkpoint, tensorboard]
+	initial_epoch = args['initial-epoch'],
+	callbacks = [checkpoint]#, tensorboard]
 	#validation_data = test_gen,
 	#validation_steps = ?
 	)
