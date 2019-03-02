@@ -27,15 +27,15 @@ class VideoGenerator():
 		assert self.n_classes == len(self.id_by_classname), "Number of unique classes for training set isn't equal to testing set"
 
 	def get_filenames(self, directory):
-		filenames = glob.glob(os.path.join(directory, f"**/*{self.file_ext}"))
+		filenames = glob.glob(os.path.join(directory, '**/*{0}'.format(self.file_ext)))
 		return filenames
 
 	def generate(self, mode = 'train', rotation_range = None, heigt_shift_range = None, width_shift_range = None,
 				 shear_range = None, zoom_range = None, horizontal_flip = None, vertical_flip = None, brightness_range = None):
 
-		if train_or_test == 'train':
+		if mode == 'train':
 			directory = self.train_dir
-		elif train_or_test == 'test':
+		elif mode == 'test':
 			directory = self.test_dir
 		else:
 			raise ValueError

@@ -1,5 +1,4 @@
-DvsGesture.tar.gz
-INI_UCF50_30fps_20160424.hdf5.tar.gz
-DvsGesture
-parsed_data
-INI_ucf50_recordings_30fps_20160424
+INI_UCF50_30fps_20160424.hdf5
+sf_data
+models
+train
