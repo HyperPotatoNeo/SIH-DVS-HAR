@@ -10,9 +10,9 @@ Human activity recognition on DVS data
 
 --> Preprocess data:
 
-		--> Convert data to frames
+	--> Convert data to frames
 
-		--> Concatenate into 3D Tensors
+	--> Concatenate into 3D Tensors
 
 --> Train model
 
