@@ -1,10 +1,69 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hi, {{ user.username }}!</h1>
-    {% for post in posts %}
-    <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
-    {% endfor %}
+<!DOCTYPE HTML>
+<!--
+	Urban by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
 
-    <h1> DVS </h1>
+		<!-- Banner -->
+			<section id="banner">
+				<div class="inner">
+					<header>
+						<h1>HARSPAM by Team Swish</h1>
+						<p>Problem Statement: Human Activity Recognition using event based sensors for Home IoT applications.</p>
+					</header>
+				</div>
+			</section>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Section -->
+					<section class="wrapper style1">
+						<div class="inner">
+							<!-- 2 Columns -->
+								<div class="flex flex-2">
+									<div class="col col1">
+										<div class="image round fit">
+											<img src="static/images/SIH_2019_LOGO_final.png" alt="Image not found" />
+										</div>
+									</div>
+									<div class="col col2">
+										<h3>About Our Solution</h3>
+										<p>Etiam posuere hendrerit arcu, ac blandit nulla. Sed congue malesuada nibh, a varius odio vehicula aliquet. Aliquam consequat, nunc quis sollicitudin aliquet, enim magna cursus auctor lacinia nunc ex blandit augue. Ut vitae neque fermentum, luctus elit fermentum, porta augue. Nullam ultricies, turpis at fermentum iaculis, nunc justo dictum dui, non aliquet erat nibh non ex.</p>
+										<p>Sed congue malesuada nibh, a varius odio vehicula aliquet. Aliquam consequat, nunc quis sollicitudin aliquet, enim magna cursus auctor lacinia nunc ex blandit augue. Ut vitae neque fermentum, luctus elit fermentum, porta augue. Nullam ultricies, turpis at fermentum iaculis, nunc justo dictum dui, non aliquet erat nibh non ex. </p>
+									</div>
+								</div>
+						</div>
+					</section>
+
+				<!-- Section -->
+					<section class="wrapper style2">
+						<div class="inner">
+							<div class="flex flex-2">
+								<div class="col col2">
+									<h3>About HAR and DVS</h3>
+									<p>Human activity recognition, or HAR, is a challenging time series classification task. It involves predicting the movement of a person based on sensor data and traditionally involves deep domain expertise and methods from signal processing to correctly engineer features from the raw data in order to fit a machine learning model.</p>
+									<p>The Dynamic Vision Sensor uses patented technology that works like the human retina. Only local pixel-level changes are transmitted at the time they occur. The result is a stream of events at microsecond time resolution, equivalent to conventional vision sensors running at thousands of frames per second – but with far less data. Power, data storage and computational requirements are also drastically reduced, and sensor dynamic range is increased by orders of magnitude due to the local processing.</p>
+									
+								</div>
+								<div class="col col1 first">
+									<div class="image round fit">
+										<img src="static/images/har.jpg" alt="Image not found" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="copyright">
+					<p>&copy; Team Swish. All rights reserved. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p>
+				</div>
+			</footer>
+
 {% endblock %}

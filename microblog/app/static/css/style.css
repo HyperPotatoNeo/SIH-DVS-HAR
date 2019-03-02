@@ -1,0 +1,91 @@
+
+ body{
+ 	width: 400px;
+  padding: 5%;
+	margin: 0 auto;
+	font-family: "Roboto", sans-serif;
+	background:#7dbace;
+ }
+ 	
+ h2{
+  	font-weight: bold;
+  	color: #193c47;
+  	font-size: 1.2rem;
+  	text-transform: uppercase;
+ }
+
+  h1{
+  color: #193c47;
+  text-transform: uppercase;
+  font-size: 2.0rem;
+  padding-bottom: 4%;
+  text-align: center;
+ }
+
+ .main{
+ 	position: relative;
+	z-index: 1;
+	background: #FFFFFF;
+	max-width: 400px;
+	padding: 32px;
+  padding-top: 10px;
+	text-align: center;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px; /* future proofing */
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+ }
+
+ .main input {
+  	font-family: "Roboto", sans-serif;
+  	background: #f2f2f2;
+  	width: 100%;
+  	border: 0;
+  	margin: 5px;
+  	padding: 5%;
+  	box-sizing: border-box;
+  	font-size: .9rem;
+}
+
+.main button {
+  	font-family: "Roboto", sans-serif;
+  	text-transform: uppercase;
+  	background: #3c9cbc;
+  	width: 100%;
+  	border: 0;
+  	margin:2px;
+    margin-top: 5px;
+  	padding: 5%;
+  	color: #FFFFFF;
+  	font-size: .9rem;
+  	cursor: pointer;
+    -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px; /* future proofing */
+}
+
+.main button:hover {
+  background: #2a738c;
+}
+
+button{
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    background: #3c9cbc;
+    width: 100%;
+    border: 0;
+    margin:2px;
+    padding: 5%;
+    color: #FFFFFF;
+    font-size: .9rem;
+    cursor: pointer;
+}
+
+button:hover {
+  background: #2a738c;
+}
+
+#logout{
+  text-decoration: none;
+  background-color: none;
+}
