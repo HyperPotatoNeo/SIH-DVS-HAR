@@ -1,9 +1,7 @@
-  
 import glob
 import random
 import os
 import numpy as np
-
 
 class VideoGenerator():
 
@@ -50,7 +48,6 @@ class VideoGenerator():
 			n_batches = int(len(filenames) / self.batch_size)
 
 			for i in range(n_batches):
-				# print(f"Slicing {i*self.batch_size}:{(i+1)*self.batch_size}")
 				filenames_batch = filenames[i * self.batch_size:(i + 1) * self.batch_size]
 				x, y = self.__generate_data_frome_batch_file_names(filenames_batch)
 				yield x, y
@@ -64,7 +61,7 @@ class VideoGenerator():
 			try:
 				npy = npy[npy.files[0]] # If an npz file we need to get the data out using the filename as a key
 			except:
-				pass
+				pass	
 
 			if len(npy.shape) == 3:  # Add colour channel to B&W images
 				npy = np.expand_dims(npy, axis=-1)

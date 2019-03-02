@@ -1,4 +1,5 @@
 import numpy as np
+from argparse import ArgumentParser
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.layers import Conv2D
@@ -13,6 +14,12 @@ from tensorflow.keras.layers import Input
 from tensorflow.keras.models import Model
 from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard
 from dataloader import *
+
+def get_parser():
+	parser = ArgumentParser()
+	parser.add_argument('-e', '--epochs', dest = 'epochs', default = 40)
+	parser.add_argument('-i', '--initial_epoch', dest = 'epochs', default = 0)
+	
 
 def network(x, n_classes):
 	x=TimeDistributed()(Conv2D(3,(3,3),padding='same')(x))
@@ -87,7 +94,7 @@ tensorboard = TensorBoard(
     update_freq  ='epoch'
     )
 
-inputs = Input(shape = (IMG_WIDTH,IMG_HEIGHT))
+inputs = Input(shape = (N_FRAMES,IMG_WIDTH,IMG_HEIGHT))
 output = network(inputs,N_CLASSES)
 model = Model(input=inputs,outputs=output)
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
